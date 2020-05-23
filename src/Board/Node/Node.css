@@ -1,0 +1,99 @@
+.node {
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgb(175, 216, 248);
+}
+
+.finish {
+  background-image: url(../../assets/finish.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.start {
+  background-image: url(../../assets/start.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.visited {
+  animation-name: visitedAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(255, 153, 51, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(179, 0, 179, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(153, 0, 204 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(102, 0, 204, 0.75)
+  }
+}
+
+.wall {
+  background-color: rgb(40, 40, 80);
+}
+
+.shortest-path {
+  animation-name: shortestPath;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+@keyframes shortestPath {
+  0% {
+    transform: scale(0.6);
+    background-color: rgba(0, 217, 159, 0.75);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: rgba(0, 217, 159, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(0, 217, 159, 0.75);
+  }
+}
+
+.shortest-path-start{
+  background-image: url(../../assets/start.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.4;
+}
+
+.shortest-path-finish{
+  background-image: url(../../assets/finish-run.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
