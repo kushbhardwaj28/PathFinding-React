@@ -1,5 +1,5 @@
 This Pathfinding Visualizer project made in React.<br>
-To view the project visit [Path Finder React](https://pathfindingreact.000webhostapp.com/).
+To view the project visit [Path Finder React](https://pathfinder-react.herokuapp.com/).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
