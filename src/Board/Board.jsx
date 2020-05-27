@@ -101,7 +101,7 @@ export default class Board extends Component {
 
   visualizeDijkstra() {
     this.setState({ isAlgoProcessing: true });
-    this.clearBoard();
+    this.clearBoard(false);
     const { grid } = this.state;
     const startNode = grid[this.state.startNode.y][this.state.startNode.x];
     const finishNode = grid[this.state.finishNode.y][this.state.finishNode.x];
@@ -113,7 +113,7 @@ export default class Board extends Component {
 
   visualizeAStar() {
     this.setState({ isAlgoProcessing: true });
-    this.clearBoard();
+    this.clearBoard(false);
     const { grid } = this.state;
     const startNode = grid[this.state.startNode.y][this.state.startNode.x];
     const finishNode = grid[this.state.finishNode.y][this.state.finishNode.x];
@@ -125,21 +125,19 @@ export default class Board extends Component {
   }
 
   handleWidthChange(event) {
-    // this.clearBoard();
-    const startNode = { x: Math.floor(Math.random() * (this.state.width - 1)), y: Math.floor(Math.random() * (this.state.height - 1)) };
-    const finishNode = { x: Math.floor(Math.random() * (this.state.width - 1)), y: Math.floor(Math.random() * (this.state.height - 1)) };
+    const startNode = { x: Math.floor(Math.random() * (event.target.value - 1)), y: Math.floor(Math.random() * (this.state.height - 1)) };
+    const finishNode = { x: Math.floor(Math.random() * (event.target.value - 1)), y: Math.floor(Math.random() * (this.state.height - 1)) };
 
-    const grid = getInitialGrid(this.state.width, this.state.height, startNode, finishNode);
+    const grid = getInitialGrid(event.target.value, this.state.height, startNode, finishNode);
 
     this.setState({ grid: grid, startNode, finishNode, width: event.target.value });
   }
 
   handleHeightChange(event) {
-    // this.clearBoard();
-    const startNode = { x: Math.floor(Math.random() * (this.state.width - 1)), y: Math.floor(Math.random() * (this.state.height - 1)) };
-    const finishNode = { x: Math.floor(Math.random() * (this.state.width - 1)), y: Math.floor(Math.random() * (this.state.height - 1)) };
+    const startNode = { x: Math.floor(Math.random() * (this.state.width - 1)), y: Math.floor(Math.random() * (event.target.value - 1)) };
+    const finishNode = { x: Math.floor(Math.random() * (this.state.width - 1)), y: Math.floor(Math.random() * (event.target.value - 1)) };
 
-    const grid = getInitialGrid(this.state.width, this.state.height, startNode, finishNode);
+    const grid = getInitialGrid(this.state.width, event.target.value, startNode, finishNode);
 
     this.setState({ grid: grid, startNode, finishNode, height: event.target.value });
   }
@@ -156,7 +154,7 @@ export default class Board extends Component {
           <button id="primary-button" onClick={() => this.visualizeAStar()}>
             Visualize A*
         </button>
-          <button id="secondary-button" onClick={() => this.clearBoard()}>
+          <button id="secondary-button" onClick={() => this.clearBoard(true)}>
             Clear Board
         </button>
           <div className="display-flex">
@@ -181,8 +179,9 @@ export default class Board extends Component {
           </div>
         </div>
         <div className="legends display-flex flex-col">
-          <div className="display-flex">Start: <span className="legend start"></span></div>
-          <div className="display-flex">Escape: <span className="legend finish"></span></div>
+          <div className="display-flex">Start: <span className="legend start"></span> (drag me on board to reposition)</div>
+          <div className="display-flex">Escape: <span className="legend finish"></span> (drag me on board to reposition)</div>
+          <div className="display-flex">Wall: <span className="legend wall"></span>(Just click and draw on add wall)</div>
           <div className="display-flex">Successful escape: <span className="legend shortest-path-finish"></span></div>
           <div className="display-flex">Visited: <span className="legend visited"></span></div>
           <div className="display-flex">Shortest path: <span className="legend shortest-path"></span></div>
@@ -191,7 +190,7 @@ export default class Board extends Component {
           <tbody>
             {grid.map((row, rowIdx) => {
               return (
-                <tr id={`row ${rowIdx}`} key={rowIdx}>
+                <tr id={`row-${rowIdx}`} key={rowIdx}>
                   {row.map((node, nodeIdx) => {
                     const { row, col, isFinish, isStart, isWall } = node;
                     return (
@@ -220,10 +219,12 @@ export default class Board extends Component {
     );
   }
 
-  clearBoard() {
+  clearBoard(clearWall) {
     const newGrid = this.state.grid.slice();
-
-    const baseClasses = ['node', 'start', 'finish', 'wall'];
+    const baseClasses = ['node', 'start', 'finish'];
+    if (!clearWall) {
+      baseClasses.push('wall');
+    }
 
     for (let row = 0; row < this.state.height; row++) {
       for (let col = 0; col < this.state.width; col++) {
@@ -249,6 +250,8 @@ export default class Board extends Component {
             heuristicDistance: null,
             path: null,
             weight: 0,
+            isWall: node.isWall ? !clearWall : node.isWall,
+            status: node.isWall ? clearWall ? 'unvisited' : 'wall' : 'unvisited',
           };
           newGrid[row][col] = newNode;
         }

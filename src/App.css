@@ -31,3 +31,5 @@
 .flex-col{
   flex-direction: column;
 }
+
+button:focus {outline:0;}
