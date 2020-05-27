@@ -205,7 +205,7 @@ export function getNodesInShortestPathOrderAStar(finishNode) {
     return nodesInShortestPathOrder;
 }
 
-function animateShortestPath(nodesInShortestPathOrder) {
+function animateShortestPath(nodesInShortestPathOrder, afterDoneCallback) {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
         setTimeout(() => {
             const node = nodesInShortestPathOrder[i];
@@ -220,15 +220,18 @@ function animateShortestPath(nodesInShortestPathOrder) {
             }
 
             document.getElementById(`node-${node.row}-${node.col}`).classList.add(...addClass);
+            if (i === nodesInShortestPathOrder.length - 1) {
+                afterDoneCallback();
+            }
         }, 50 * i);
     }
 }
 
-export function animateAStar(visitedNodesInOrder, nodesInShortestPathOrder) {
+export function animateAStar(visitedNodesInOrder, nodesInShortestPathOrder, afterDoneCallback) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
         if (i === visitedNodesInOrder.length) {
             setTimeout(() => {
-                animateShortestPath(nodesInShortestPathOrder);
+                animateShortestPath(nodesInShortestPathOrder, afterDoneCallback);
             }, 10 * i);
             return;
         }

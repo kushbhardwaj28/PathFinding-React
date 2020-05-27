@@ -107,8 +107,7 @@ export default class Board extends Component {
     const finishNode = grid[this.state.finishNode.y][this.state.finishNode.x];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
     const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
-    this.setState({ isAlgoProcessing: false });
+    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder, () => this.setState({ isAlgoProcessing: false }));
   }
 
   visualizeAStar() {
@@ -120,8 +119,8 @@ export default class Board extends Component {
     let nodesToAnimate = [];
     astar(startNode, finishNode, nodesToAnimate, grid, '');
     const nodesInShortestPathOrder = getNodesInShortestPathOrderAStar(finishNode);
-    animateAStar(nodesToAnimate, nodesInShortestPathOrder);
-    this.setState({ isAlgoProcessing: false });
+    animateAStar(nodesToAnimate, nodesInShortestPathOrder, () => { this.setState({ isAlgoProcessing: false }); console.log('called') });
+    ;
   }
 
   handleWidthChange(event) {
@@ -148,13 +147,13 @@ export default class Board extends Component {
     return (
       <>
         <div id="controls">
-          <button id="primary-button" onClick={() => this.visualizeDijkstra()}>
+          <button disabled={this.state.isAlgoProcessing} id="primary-button" onClick={() => this.visualizeDijkstra()}>
             Visualize Dijkstra's Algorithm
         </button>
-          <button id="primary-button" onClick={() => this.visualizeAStar()}>
+          <button disabled={this.state.isAlgoProcessing} id="primary-button" onClick={() => this.visualizeAStar()}>
             Visualize A*
         </button>
-          <button id="secondary-button" onClick={() => this.clearBoard(true)}>
+          <button disabled={this.state.isAlgoProcessing} id="secondary-button" onClick={() => this.clearBoard(true)}>
             Clear Board
         </button>
           <div className="display-flex">
