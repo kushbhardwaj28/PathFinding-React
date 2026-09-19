@@ -1,9 +1,4 @@
-
-@import url('<link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">');
-
-.App {
-  font-family: 'Balsamiq Sans', cursive;
-}
+.App {}
 
 .App-logo {
   height: 40vmin;
@@ -24,12 +19,14 @@
   color: #09d3ac;
 }
 
-.display-flex{
+.display-flex {
   display: flex;
 }
 
-.flex-col{
+.flex-col {
   flex-direction: column;
 }
 
-button:focus {outline:0;}
+button:focus {
+  outline: 0;
+}
