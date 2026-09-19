@@ -1,10 +1,10 @@
 import './App.css';
-import { Board } from './board/Board';
+import { AlgoVisualizer } from './visualizer/AlgoVisualizer';
 
 function App() {
   return (
     <div className="App">
-      <Board></Board>
+      <AlgoVisualizer />
     </div>
   );
 }
