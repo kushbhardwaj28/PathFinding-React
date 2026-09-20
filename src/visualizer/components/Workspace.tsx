@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { ALGOS, ALGO_KEYS, FAMILIES, buildFrames, mazeWalls, randomArray, type AlgoKey, type Inputs, type VizKind } from './steps/registry';
-import { useStepPlayer } from './useStepPlayer';
+import { ALGOS, ALGO_KEYS, FAMILIES, buildFrames, mazeWalls, randomArray, type AlgoKey, type Inputs, type VizKind } from '../algorithms';
+import { useStepPlayer } from '../hooks/useStepPlayer';
 import { VizCanvas, type GridEdit } from './VizCanvas';
 import { CodeBlock } from './CodeBlock';
 import { Icon } from './Icon';
@@ -25,7 +25,7 @@ interface WorkspaceProps {
 
 export const Workspace: React.FC<WorkspaceProps> = ({ algo, inputs, setInputs, onPick, onReadNotes }) => {
     const meta = ALGOS[algo];
-    const family = FAMILIES.find((f) => f.id === meta.family)!;
+    const family = FAMILIES.find((fam) => fam.id === meta.family)!;
     const frames = useMemo(() => buildFrames(algo, inputs), [algo, inputs]);
     const player = useStepPlayer(frames.length, meta.rate);
     const frame = frames[player.idx];
@@ -58,21 +58,21 @@ export const Workspace: React.FC<WorkspaceProps> = ({ algo, inputs, setInputs, o
                     {
                         label: 'Nearly sorted',
                         run: () => {
-                            const n = inputs.arr.length;
-                            const a = Array.from({ length: n }, (_, i) => 6 + Math.round((i * 90) / n));
-                            for (let k = 0; k < Math.max(2, n / 8); k++) {
-                                const i = Math.floor(Math.random() * n);
-                                const j = Math.floor(Math.random() * n);
-                                [a[i], a[j]] = [a[j], a[i]];
+                            const count = inputs.arr.length;
+                            const values = Array.from({ length: count }, (_, i) => 6 + Math.round((i * 90) / count));
+                            for (let swap = 0; swap < Math.max(2, count / 8); swap++) {
+                                const first = Math.floor(Math.random() * count);
+                                const second = Math.floor(Math.random() * count);
+                                [values[first], values[second]] = [values[second], values[first]];
                             }
-                            setInputs({ ...inputs, arr: a });
+                            setInputs({ ...inputs, arr: values });
                         },
                     },
                     {
                         label: 'Reversed',
                         run: () => {
-                            const n = inputs.arr.length;
-                            setInputs({ ...inputs, arr: Array.from({ length: n }, (_, i) => 96 - Math.round((i * 90) / n)) });
+                            const count = inputs.arr.length;
+                            setInputs({ ...inputs, arr: Array.from({ length: count }, (_, i) => 96 - Math.round((i * 90) / count)) });
                         },
                     },
                 ]
@@ -125,9 +125,9 @@ export const Workspace: React.FC<WorkspaceProps> = ({ algo, inputs, setInputs, o
                         </div>
                         <span className="av-divider-v" />
                         <div className="av-row av-gap-2 av-wrap">
-                            {tools.map((t) => (
-                                <button className="av-chip" key={t.label} onClick={t.run}>
-                                    {t.label}
+                            {tools.map((tool) => (
+                                <button className="av-chip" key={tool.label} onClick={tool.run}>
+                                    {tool.label}
                                 </button>
                             ))}
                         </div>
@@ -187,10 +187,10 @@ export const Workspace: React.FC<WorkspaceProps> = ({ algo, inputs, setInputs, o
                         </section>
                         <table className="av-table">
                             <tbody>
-                                {meta.cost.map(([k, v]) => (
-                                    <tr key={k}>
-                                        <td>{k}</td>
-                                        <td className="av-mono av-accent av-right-cell">{v}</td>
+                                {meta.cost.map(([metric, value]) => (
+                                    <tr key={metric}>
+                                        <td>{metric}</td>
+                                        <td className="av-mono av-accent av-right-cell">{value}</td>
                                     </tr>
                                 ))}
                             </tbody>

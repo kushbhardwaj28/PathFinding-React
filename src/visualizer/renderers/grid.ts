@@ -4,6 +4,7 @@ import { COLORS } from './theme';
 
 export function grid(ctx: Ctx, w: number, h: number, frame: Frame, opts: RenderOpts) {
   const { cols, rows, start, goal } = opts;
+  if (!cols || !rows) return;
   const cell = Math.max(5, Math.min(Math.floor((w - 8) / cols), Math.floor((h - 8) / rows)));
   const ox = Math.floor((w - cell * cols) / 2), oy = Math.floor((h - cell * rows) / 2);
   opts.geom = { cell, ox, oy };
@@ -27,6 +28,6 @@ export function grid(ctx: Ctx, w: number, h: number, frame: Frame, opts: RenderO
     ctx.font = '600 ' + Math.max(7, cell - 6) + 'px Inter, sans-serif';
     ctx.fillText(glyph, x + cell / 2, y + cell / 2 + 0.5);
   };
-  mark(start, COLORS.start, 'S');
-  mark(goal, COLORS.goal, 'G');
+  mark(start ?? null, COLORS.start, 'S');
+  mark(goal ?? null, COLORS.goal, 'G');
 }

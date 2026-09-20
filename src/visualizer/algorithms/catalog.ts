@@ -12,9 +12,9 @@ export const FAMILIES: Family[] = [
 /**
  * One entry per algorithm — name, grouping, prose, and a reference code
  * snippet for display (not executed). This is metadata only; the actual
- * step-by-step animation logic lives in the per-family builder files
- * (pathfinding.ts, sorting.ts, graphs.ts, trees.ts, dynamic-programming.ts,
- * data-structures.ts) and is wired up in index.ts. See the README for the
+ * step-by-step animation logic lives in one file per algorithm inside the
+ * per-family folders (pathfinding/, sorting/, graphs/, ...) and is wired up
+ * in index.ts. See the README for the
  * full "add a new algorithm" guide.
  */
 export const ALGOS = {

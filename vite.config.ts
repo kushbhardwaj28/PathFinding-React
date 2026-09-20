@@ -16,12 +16,6 @@ export default defineConfig({
         chunkSizeWarningLimit: 1100,
         rollupOptions: {
             output: {
-                // p5 (~1MB) is only pulled in by the lazy-loaded arcade games, never
-                // by the initial bundle — split it into its own named chunk so the
-                // size warning doesn't fire on a vendor lib that's already lazy.
-                manualChunks: {
-                    p5: ['p5'],
-                },
             },
         },
     },

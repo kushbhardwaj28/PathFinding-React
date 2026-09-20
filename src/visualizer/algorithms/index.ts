@@ -4,17 +4,18 @@
  *
  * To add a new algorithm:
  *   1. Add its metadata to ALGOS in catalog.ts.
- *   2. Write a `myAlgoFrames(inputs) => Frame[]` builder in the file for its
- *      family (pathfinding.ts, sorting.ts, graphs.ts, trees.ts,
- *      dynamic-programming.ts, data-structures.ts) — or a new family file if
- *      it needs a new visualization kind (see renderers/index.ts too, in
- *      that case).
+ *   2. Write a `myAlgoFrames(inputs) => Frame[]` builder in its own file
+ *      inside the folder for its family (pathfinding/, sorting/, graphs/,
+ *      trees/, dynamic-programming/, data-structures/) and export it from
+ *      that folder's index.ts. A new family gets a new folder (and a new
+ *      visualization kind also needs a renderer, see renderers/index.ts).
  *   3. Import it below and add one line to ALGORITHM_BUILDERS.
  * Forgetting step 3 is a compile error, since AlgoKey is derived from
  * ALGOS's own keys — see catalog.ts. Full walkthrough in the README.
  */
 
-import type { AlgoKey, Frame, Inputs } from './types';
+import type { Frame, Inputs } from './types';
+import type { AlgoKey } from './catalog';
 import { bfsFrames, dfsFrames, dijkstraFrames, astarFrames } from './pathfinding';
 import { bubbleSortFrames, insertionSortFrames, mergeSortFrames, quickSortFrames, heapSortFrames } from './sorting';
 import { primFrames, kruskalFrames, topoSortFrames, cycleDetectionFrames } from './graphs';

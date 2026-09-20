@@ -1,5 +1,5 @@
 import React from 'react';
-import { ALGOS, ALGO_KEYS, FAMILIES, type AlgoKey } from './steps/registry';
+import { ALGOS, ALGO_KEYS, FAMILIES, type AlgoKey } from '../algorithms';
 
 interface CatalogProps {
     current: AlgoKey;

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { render, type RenderOpts } from './steps/renderers';
-import type { Frame, VizKind } from './steps/registry';
+import { render, type RenderOpts } from '../renderers';
+import type { Frame, VizKind } from '../algorithms';
 
 export type GridEdit = 'wall' | 'erase' | 'start' | 'goal';
 

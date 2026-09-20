@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { ALGOS, ALGO_KEYS, FAMILIES, buildFrames, mazeWalls, randomArray, type AlgoKey, type Inputs } from './steps/registry';
-import { useStepPlayer } from './useStepPlayer';
+import { ALGOS, ALGO_KEYS, FAMILIES, buildFrames, mazeWalls, randomArray, type AlgoKey, type Inputs } from '../algorithms';
+import { useStepPlayer } from '../hooks/useStepPlayer';
 import { VizCanvas } from './VizCanvas';
 import { Icon } from './Icon';
 

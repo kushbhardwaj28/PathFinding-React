@@ -1,5 +1,5 @@
 import React from 'react';
-import { ALGOS, ALGO_KEYS, FAMILIES, type AlgoKey } from './steps/registry';
+import { ALGOS, ALGO_KEYS, FAMILIES, type AlgoKey } from '../algorithms';
 import { CodeBlock } from './CodeBlock';
 
 interface AlgoDetailProps {
@@ -10,7 +10,7 @@ interface AlgoDetailProps {
 
 export const AlgoDetail: React.FC<AlgoDetailProps> = ({ algo, onOpen, onRead }) => {
     const meta = ALGOS[algo];
-    const family = FAMILIES.find((f) => f.id === meta.family)!;
+    const family = FAMILIES.find((fam) => fam.id === meta.family)!;
     const sections = [
         { heading: 'Mechanism', paragraph: meta.idea },
         { heading: 'Where it earns its place', paragraph: meta.use },
@@ -41,10 +41,10 @@ export const AlgoDetail: React.FC<AlgoDetailProps> = ({ algo, onOpen, onRead }) 
                     <div className="av-kicker">Cost</div>
                     <table className="av-table">
                         <tbody>
-                            {meta.cost.map(([k, v]) => (
-                                <tr key={k}>
-                                    <td>{k}</td>
-                                    <td className="av-mono av-accent av-right-cell">{v}</td>
+                            {meta.cost.map(([metric, value]) => (
+                                <tr key={metric}>
+                                    <td>{metric}</td>
+                                    <td className="av-mono av-accent av-right-cell">{value}</td>
                                 </tr>
                             ))}
                         </tbody>

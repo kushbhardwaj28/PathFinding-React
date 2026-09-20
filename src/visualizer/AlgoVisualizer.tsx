@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { defaultInputs, type AlgoKey, type Inputs } from './steps/registry';
-import { Catalog } from './Catalog';
-import { Workspace } from './Workspace';
-import { AlgoDetail } from './AlgoDetail';
-import { Compare } from './Compare';
+import { defaultInputs, type AlgoKey, type Inputs } from './algorithms';
+import { Catalog } from './components/Catalog';
+import { Workspace } from './components/Workspace';
+import { AlgoDetail } from './components/AlgoDetail';
+import { Compare } from './components/Compare';
 import './visualizer.css';
 
 type Screen = 'catalog' | 'work' | 'detail' | 'compare';
